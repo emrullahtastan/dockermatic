@@ -1,0 +1,38 @@
+version: '3'
+
+
+services:
+    
+    #PHP Service
+    php_7_4:
+        build:
+            context: ./docker/php
+            dockerfile: Dockerfile
+        image: custom-php:7.4-fpm
+        container_name: php_7_4
+        tty: true
+        working_dir: /var/www
+        volumes:
+            - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+            - ./../phpapp/:/var/www/
+        networks: 
+            - local-bridge
+
+
+    #Nginx Service
+    nginx:
+        image: nginx:alpine
+        container_name: nginx
+        tty: true
+        volumes:
+            - ./../phpapp/:/var/www/
+            - ./nginx/conf.d/:/etc/nginx/conf.d/
+
+        ports: 
+            - 80:80
+        networks: 
+            - local-bridge
+
+networks:
+    local-bridge:
+        driver: bridge
