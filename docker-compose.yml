@@ -33,6 +33,22 @@ services:
         networks: 
             - local-bridge
 
+
+    #Go Service
+    go_app:
+        build:
+            context: ./docker/go
+            dockerfile: Dockerfile
+        image: custom-go:1.14
+        container_name: go_app
+        tty: true
+        volumes:
+            - ./src/:/go/src/app/
+        ports: 
+            - 6060:8080
+        networks: 
+            - local-bridge
+
 networks:
     local-bridge:
         driver: bridge
