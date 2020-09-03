@@ -1,7 +1,7 @@
 FROM golang:1.14
 
 WORKDIR /go/src/app
-COPY . /go/src/app/
+COPY ./src /go/src/app/
 
 RUN go get -d -v ./...
 RUN go install -v ./...
