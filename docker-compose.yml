@@ -33,6 +33,17 @@ services:
         networks: 
             - local-bridge
 
+    vue_app:
+        container_name: vue_app
+        build:
+            context: ./docker/vue
+            dockerfile: Dockerfile
+        volumes:
+            - '.:/app'
+            - '/app/node_modules'
+        ports:
+            - '8080:8080'
+
 networks:
     local-bridge:
         driver: bridge
